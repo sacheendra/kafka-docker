@@ -1,19 +1,9 @@
 #!/bin/bash
 
-<<<<<<< HEAD
 export KAFKA_ADVERTISED_PORT=9092
 
 export KAFKA_BROKER_ID=${TUTUM_CONTAINER_HOSTNAME##*-}
 
-=======
-if [[ -z "$KAFKA_ADVERTISED_PORT" ]]; then
-    export KAFKA_ADVERTISED_PORT=$(docker port `hostname` 9092 | sed -r "s/.*:(.*)/\1/g")
-fi
-if [[ -z "$KAFKA_BROKER_ID" ]]; then
-    # By default auto allocate broker ID
-    export KAFKA_BROKER_ID=-1
-fi
->>>>>>> 9623fad49f002456a9725b1be210e884fbf34c6f
 if [[ -z "$KAFKA_LOG_DIRS" ]]; then
     export KAFKA_LOG_DIRS="/kafka/kafka-logs-$HOSTNAME"
 fi
@@ -26,13 +16,8 @@ if [[ -n "$KAFKA_HEAP_OPTS" ]]; then
     unset KAFKA_HEAP_OPTS
 fi
 
-<<<<<<< HEAD
 if [[ -z "$KAFKA_ADVERTISED_HOST_NAME" ]]; then
     export KAFKA_ADVERTISED_HOST_NAME=$TUTUM_CONTAINER_HOSTNAME.$TUTUM_STACK_NAME
-=======
-if [[ -z "$KAFKA_ADVERTISED_HOST_NAME" && -n "$HOSTNAME_COMMAND" ]]; then
-    export KAFKA_ADVERTISED_HOST_NAME=$(eval $HOSTNAME_COMMAND)
->>>>>>> 9623fad49f002456a9725b1be210e884fbf34c6f
 fi
 
 for VAR in `env`
